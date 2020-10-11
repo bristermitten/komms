@@ -3,6 +3,7 @@ package me.bristermitten.komms
 import me.bristermitten.komms.command.arg
 import me.bristermitten.komms.command.command
 import me.bristermitten.komms.sender.LoggingSender
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -11,14 +12,18 @@ import kotlin.test.assertTrue
 /**
  * @author AlexL
  */
-class CommandHandlerTests {
+class SimpleCommandTests {
 
     private val sender = LoggingSender()
+    private lateinit var handler: CommandHandler
+
+    @BeforeEach
+    fun setUp() {
+        handler = CommandHandler()
+    }
 
     @Test
     fun `Test Basic Command Handling`() {
-        val handler = CommandHandler()
-
         var messageValue = ""
 
         val broadcastCommand = command("broadcast", arg("message")) { message ->
@@ -33,8 +38,6 @@ class CommandHandlerTests {
 
     @Test
     fun `Test Basic Command Handling with multiple commands`() {
-        val handler = CommandHandler()
-
         var messageValue = ""
         var messageValue2 = ""
 
@@ -58,8 +61,6 @@ class CommandHandlerTests {
 
     @Test
     fun `Test Basic Command Handling with Int`() {
-        val handler = CommandHandler()
-
         var value = 0
 
         val broadcastCommand = command("number", arg<Int>("num")) { num ->
@@ -75,8 +76,6 @@ class CommandHandlerTests {
 
     @Test
     fun `Test Basic Command Handling with Invalid Int`() {
-        val handler = CommandHandler()
-
         var value = 0
         val broadcastCommand = command("number", arg<Int>("num")) { num ->
             value = num
