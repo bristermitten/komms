@@ -59,6 +59,7 @@ class CommandHandlerTests {
         val handler = CommandHandler()
 
         var value = 0
+
         val broadcastCommand = command("number", arg<Int>("num")) { num ->
             value = num
         }
@@ -84,6 +85,8 @@ class CommandHandlerTests {
         handler.handle(sender, "number hello")
 
         assertEquals(0, value)
-        assertTrue { sender.messages.poll().contains("Illegal arguments") }
+        assertTrue {
+            sender.messages.poll().contains("Illegal arguments")
+        }
     }
 }
