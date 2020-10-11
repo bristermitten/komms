@@ -1,0 +1,7 @@
+plugins {
+    id 'application'
+}
+
+dependencies {
+    api 'org.jetbrains.kotlin:kotlin-reflect:1.4.10'
+}
