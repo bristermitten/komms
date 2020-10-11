@@ -7,4 +7,5 @@ fun ArgumentParsers.registerDefaultParsers() {
     registerParser(IntArgumentParser)
     registerParser(DoubleArgumentParser)
     registerParser(FloatArgumentParser)
+    registerParser(StringListArgumentParser)
 }

@@ -21,6 +21,15 @@ fun <T : Any> playerCommand(
     return command(name, arg1, body)
 }
 
+fun <A : Any, B: Any> playerCommand(
+    name: String,
+    arg1: ArgumentSnapshot<A>,
+    arg2: ArgumentSnapshot<B>,
+    body: PlayerCommandSender.(A, B) -> Unit,
+): Command<PlayerCommandSender> {
+    return command(name, arg1, arg2, body)
+}
+
 fun <T : Any> consoleCommand(
     name: String,
     arg1: ArgumentSnapshot<T>,

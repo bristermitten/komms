@@ -29,18 +29,20 @@ fun <T : Any> loggingSenderCommand(
 }
 
 
-fun <A : Any, B : Any> command(
+inline fun <reified S : Sender<*>, A : Any, B : Any> command(
     name: String,
     arg1: ArgumentSnapshot<A>,
     arg2: ArgumentSnapshot<B>,
-    body: Sender<*>.(A, B) -> Unit,
-): Command<Sender<*>> {
-    return Command(name, Sender::class, listOf(arg1, arg2), ) { args ->
-        body(args[0] as A, args[2] as B)
+    crossinline body: S.(A, B) -> Unit,
+): Command<S> {
+    return Command(name, S::class, listOf(arg1, arg2)) { args ->
+        body(args[0] as A, args[1] as B)
     }
 }
 
 @JvmName("stringArg")
 fun arg(name: String) = arg<String>(name)
+
+fun vararg(name: String) = arg<List<String>>(name)
 
 inline fun <reified T : Any> arg(name: String) = ArgumentSnapshot(name, T::class)

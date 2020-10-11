@@ -7,5 +7,6 @@ class KommsTest : JavaPlugin() {
     override fun onEnable() {
         val manager = spigotCommandHandler(this)
         manager.registerCommand(broadcastCommand)
+        manager.registerCommand(messageCommand)
     }
 }
