@@ -5,6 +5,6 @@ import java.util.*
 /**
  * @author AlexL
  */
-interface ArgumentParser<T> {
-    fun parse(arguments: Deque<String>) : T
+interface ArgumentParser<T : Any> {
+    fun parse(arguments: Deque<String>) : ParseResult<T>
 }

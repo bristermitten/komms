@@ -6,7 +6,7 @@ import java.util.*
  * @author AlexL
  */
 object StringArgumentParser : ArgumentParser<String> {
-    override fun parse(arguments: Deque<String>): String {
-        return arguments.pop()
+    override fun parse(arguments: Deque<String>): ParseResult<String> {
+        return Success(arguments.pop())
     }
 }
