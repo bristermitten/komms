@@ -1,9 +1,8 @@
 @file:Suppress("UNCHECKED_CAST")
 
-package me.bristermitten.komms
+package me.bristermitten.komms.command
 
 import me.bristermitten.komms.argument.ArgumentSnapshot
-import me.bristermitten.komms.command.Command
 
 /**
  * @author AlexL

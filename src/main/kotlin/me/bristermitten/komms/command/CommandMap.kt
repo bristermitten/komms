@@ -1,11 +1,9 @@
-package me.bristermitten.komms
-
-import me.bristermitten.komms.command.RegisteredCommand
+package me.bristermitten.komms.command
 
 /**
  * @author AlexL
  */
-class CommandMap : MutableMap<String, List<RegisteredCommand>> by mutableMapOf() {
+internal class CommandMap : MutableMap<String, List<RegisteredCommand>> by mutableMapOf() {
 
     fun register(value: RegisteredCommand) {
         val name = value.name

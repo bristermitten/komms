@@ -8,6 +8,7 @@ import me.bristermitten.komms.argument.parser.Success
 import me.bristermitten.komms.argument.parser.defaults.registerDefaultParsers
 import me.bristermitten.komms.command.RegisteredCommand
 import me.bristermitten.komms.command.Command
+import me.bristermitten.komms.command.CommandMap
 import me.bristermitten.komms.command.RealizedCommand
 import me.bristermitten.komms.sender.Sender
 import java.util.*
@@ -16,7 +17,7 @@ import java.util.*
  * @author AlexL
  */
 class CommandHandler {
-    val commands = CommandMap()
+    private val commands = CommandMap()
     private val parsers = ArgumentParsers()
 
 

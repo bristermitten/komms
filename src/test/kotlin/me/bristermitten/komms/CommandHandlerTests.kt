@@ -1,5 +1,7 @@
 package me.bristermitten.komms
 
+import me.bristermitten.komms.command.arg
+import me.bristermitten.komms.command.command
 import me.bristermitten.komms.sender.LoggingSender
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
