@@ -3,6 +3,7 @@ package me.bristermitten.komms
 import me.bristermitten.komms.command.arg
 import me.bristermitten.komms.command.command
 import me.bristermitten.komms.command.loggingSenderCommand
+import me.bristermitten.komms.sender.DummySender
 import me.bristermitten.komms.sender.LoggingSender
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

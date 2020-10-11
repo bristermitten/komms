@@ -12,6 +12,7 @@ import me.bristermitten.komms.command.RealizedCommand
 import me.bristermitten.komms.command.RegisteredCommand
 import me.bristermitten.komms.sender.Sender
 import java.util.*
+import kotlin.reflect.full.isSubclassOf
 
 /**
  * @author AlexL
@@ -56,6 +57,10 @@ class CommandHandler {
         val args = parts.drop(1)
 
         for (command in matchingCommands) {
+            if (!command.senderType.isSubclassOf(sender::class)) {
+                continue
+            }
+
             val parsed = tryParse(args.toList(), command)
             val successes = parsed.filterIsInstance<Success<*>>()
             if (successes.size != parsed.size) {
