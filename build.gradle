@@ -8,6 +8,8 @@ subprojects {
     group = 'me.bristermitten'
     version = '1.0-SNAPSHOT'
 
+    sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
+
     repositories {
         mavenCentral()
     }

@@ -1,3 +1,7 @@
+plugins {
+    id 'maven-publish'
+}
+
 repositories {
     maven {
         url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
@@ -7,6 +11,16 @@ repositories {
     }
 }
 
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = group
+            artifactId = 'komms-spigot'
+            version = version
+            from components.java
+        }
+    }
+}
 dependencies {
     api project(':komms-base')
     compileOnly 'org.spigotmc:spigot-api:1.16.3-R0.1-SNAPSHOT'

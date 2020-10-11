@@ -9,6 +9,15 @@ import me.bristermitten.komms.sender.Sender
 /**
  * @author AlexL
  */
+inline fun <reified S : Sender<*>> command(
+    name: String,
+    crossinline body: S.() -> Unit,
+): Command<S> {
+    return Command(name, S::class, emptyList()) {
+        body()
+    }
+}
+
 
 inline fun <reified S : Sender<*>, T : Any> command(
     name: String,

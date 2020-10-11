@@ -1,7 +1,18 @@
 plugins {
     id 'application'
+    id 'maven-publish'
 }
 
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = group
+            artifactId = 'komms-base'
+            version = version
+            from components.java
+        }
+    }
+}
 dependencies {
     api 'org.jetbrains.kotlin:kotlin-reflect:1.4.10'
 }
