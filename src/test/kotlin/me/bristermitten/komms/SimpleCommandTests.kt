@@ -2,6 +2,7 @@ package me.bristermitten.komms
 
 import me.bristermitten.komms.command.arg
 import me.bristermitten.komms.command.command
+import me.bristermitten.komms.command.loggingSenderCommand
 import me.bristermitten.komms.sender.LoggingSender
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -24,30 +25,25 @@ class SimpleCommandTests {
 
     @Test
     fun `Test Basic Command Handling`() {
-        var messageValue = ""
-
-        val broadcastCommand = command("broadcast", arg("message")) { message ->
-            messageValue = message
+        val broadcastCommand = loggingSenderCommand("broadcast", arg("message")) { message ->
+            reply(message)
         }
 
         handler.registerCommand(broadcastCommand)
         handler.handle(sender, "broadcast message")
 
-        assertEquals("message", messageValue)
+        assertEquals("message", sender.messages.poll())
     }
 
     @Test
     fun `Test Basic Command Handling with multiple commands`() {
-        var messageValue = ""
-        var messageValue2 = ""
-
-        val broadcastCommand = command("broadcast", arg("message")) { message ->
-            messageValue = message
+        val broadcastCommand = loggingSenderCommand("broadcast", arg("message")) { message ->
+            reply(message)
         }
 
         //This should not be executed
         val broadcastCommand2 = command("broadcast", arg("message"), arg("message2")) { _, message2 ->
-            messageValue2 = message2
+            reply(message2)
         }
 
         handler.registerCommand(broadcastCommand)
@@ -55,7 +51,9 @@ class SimpleCommandTests {
 
         handler.handle(sender, "broadcast message")
 
-        assertEquals("message", messageValue)
-        assertEquals("", messageValue2)
+        assertEquals("message", sender.messages.poll())
+        assertTrue {
+            sender.messages.isEmpty()
+        }
     }
 }

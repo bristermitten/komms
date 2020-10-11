@@ -6,10 +6,10 @@ import me.bristermitten.komms.argument.parser.ArgumentParsers
 import me.bristermitten.komms.argument.parser.ParseResult
 import me.bristermitten.komms.argument.parser.Success
 import me.bristermitten.komms.argument.parser.defaults.registerDefaultParsers
-import me.bristermitten.komms.command.RegisteredCommand
 import me.bristermitten.komms.command.Command
 import me.bristermitten.komms.command.CommandMap
 import me.bristermitten.komms.command.RealizedCommand
+import me.bristermitten.komms.command.RegisteredCommand
 import me.bristermitten.komms.sender.Sender
 import java.util.*
 
@@ -25,14 +25,14 @@ class CommandHandler {
         parsers.registerDefaultParsers()
     }
 
-    fun registerCommand(command: Command): RegisteredCommand {
+    fun <T : Sender<*>> registerCommand(command: Command<T>): RegisteredCommand<*> {
         val name = command.name
         val realizedArguments = command.argumentTypes.map {
             realizeArgument(it)
         }
         val body = command.body
         val realizedCommand = RealizedCommand(
-            name, realizedArguments, body
+            name, command.senderType, realizedArguments, body
         )
 
         commands.register(realizedCommand)
@@ -48,7 +48,7 @@ class CommandHandler {
         return RealizedArgument(name, type, parser)
     }
 
-    fun handle(sender: Sender<*>, input: String) {
+    fun <T : Sender<*>> handle(sender: T, input: String) {
         val parts = input.split(" ")
         val name = parts.firstOrNull() ?: return
 
@@ -61,14 +61,15 @@ class CommandHandler {
             if (successes.size != parsed.size) {
                 continue
             }
-            command.execute(successes.map { it.value })
+            @Suppress("UNCHECKED_CAST")
+            (command as RegisteredCommand<T>).execute(sender, successes.map { it.value })
             return
         }
 
         sender.reply("Illegal arguments $args")
     }
 
-    private fun tryParse(args: List<String>, command: RegisteredCommand): List<ParseResult<*>> {
+    private fun tryParse(args: List<String>, command: RegisteredCommand<*>): List<ParseResult<*>> {
         val arguments = command.arguments
         val argStack = ArrayDeque(args)
 

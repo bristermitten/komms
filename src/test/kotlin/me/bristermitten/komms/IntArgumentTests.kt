@@ -2,6 +2,7 @@ package me.bristermitten.komms
 
 import me.bristermitten.komms.command.arg
 import me.bristermitten.komms.command.command
+import me.bristermitten.komms.command.loggingSenderCommand
 import me.bristermitten.komms.sender.LoggingSender
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -21,7 +22,7 @@ class IntArgumentTests {
 
         handler = CommandHandler()
 
-        val broadcastCommand = command("number", arg<Int>("num")) { num ->
+        val broadcastCommand = loggingSenderCommand("number", arg<Int>("num")) { num ->
             valueFromCommand = num
         }
         handler.registerCommand(broadcastCommand)
