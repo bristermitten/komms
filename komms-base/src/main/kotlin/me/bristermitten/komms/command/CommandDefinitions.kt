@@ -9,6 +9,8 @@ import me.bristermitten.komms.sender.Sender
 /**
  * @author AlexL
  */
+
+/* 0 arguments */
 inline fun <reified S : Sender<*>> command(
     name: String,
     crossinline body: S.() -> Unit,
@@ -18,7 +20,7 @@ inline fun <reified S : Sender<*>> command(
     }
 }
 
-
+/* 1 argument */
 inline fun <reified S : Sender<*>, T : Any> command(
     name: String,
     arg1: ArgumentSnapshot<T>,
@@ -26,6 +28,18 @@ inline fun <reified S : Sender<*>, T : Any> command(
 ): Command<S> {
     return Command(name, S::class, listOf(arg1)) { args ->
         body(args[0] as T)
+    }
+}
+
+/* 2 arguments */
+inline fun <reified S : Sender<*>, A : Any, B : Any> command(
+    name: String,
+    arg1: ArgumentSnapshot<A>,
+    arg2: ArgumentSnapshot<B>,
+    crossinline body: S.(A, B) -> Unit,
+): Command<S> {
+    return Command(name, S::class, listOf(arg1, arg2)) { args ->
+        body(args[0] as A, args[1] as B)
     }
 }
 
@@ -38,16 +52,6 @@ fun <T : Any> loggingSenderCommand(
 }
 
 
-inline fun <reified S : Sender<*>, A : Any, B : Any> command(
-    name: String,
-    arg1: ArgumentSnapshot<A>,
-    arg2: ArgumentSnapshot<B>,
-    crossinline body: S.(A, B) -> Unit,
-): Command<S> {
-    return Command(name, S::class, listOf(arg1, arg2)) { args ->
-        body(args[0] as A, args[1] as B)
-    }
-}
 
 @JvmName("stringArg")
 fun arg(name: String) = arg<String>(name)
