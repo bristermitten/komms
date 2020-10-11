@@ -10,6 +10,8 @@ import me.bristermitten.komms.command.Command
 import me.bristermitten.komms.command.CommandMap
 import me.bristermitten.komms.command.RealizedCommand
 import me.bristermitten.komms.command.RegisteredCommand
+import me.bristermitten.komms.platform.BasePlatform
+import me.bristermitten.komms.platform.Platform
 import me.bristermitten.komms.sender.Sender
 import java.util.*
 import kotlin.reflect.full.isSubclassOf
@@ -19,7 +21,9 @@ import kotlin.reflect.full.isSubclassOf
  */
 class CommandHandler {
     private val commands = CommandMap()
-    private val parsers = ArgumentParsers()
+    val parsers = ArgumentParsers()
+
+    var platform: Platform = BasePlatform
 
 
     init {
@@ -37,6 +41,7 @@ class CommandHandler {
         )
 
         commands.register(realizedCommand)
+        platform.registerPlatformCommand(command)
         return realizedCommand
     }
 

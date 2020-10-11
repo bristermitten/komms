@@ -1,32 +1,32 @@
 plugins {
-    id 'org.jetbrains.kotlin.jvm' version '1.4.10'
-    id 'application'
+    id 'org.jetbrains.kotlin.jvm' version '1.4.10' apply false
 }
 
+subprojects {
+    apply plugin: 'org.jetbrains.kotlin.jvm'
 
-group = 'me.bristermitten'
-version = '1.0-SNAPSHOT'
+    group = 'me.bristermitten'
+    version = '1.0-SNAPSHOT'
 
-repositories {
-    mavenCentral()
-}
+    repositories {
+        mavenCentral()
+    }
 
-dependencies {
-    api 'org.jetbrains.kotlin:kotlin-reflect:1.4.10'
+    dependencies {
+        testImplementation 'org.jetbrains.kotlin:kotlin-test-junit5'
+        testImplementation 'org.junit.jupiter:junit-jupiter:5.6.2'
+    }
 
-    testImplementation 'org.jetbrains.kotlin:kotlin-test-junit5'
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.6.2'
-}
+    compileKotlin {
+        kotlinOptions.jvmTarget = '1.8'
+    }
 
-compileKotlin {
-    kotlinOptions.jvmTarget = '1.8'
-}
+    compileTestKotlin {
+        kotlinOptions.jvmTarget = '1.8'
+    }
 
-compileTestKotlin {
-    kotlinOptions.jvmTarget = '1.8'
-}
+    test {
+        useJUnitPlatform()
+    }
 
-
-test {
-    useJUnitPlatform()
 }
