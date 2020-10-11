@@ -1,4 +1,4 @@
-package me.bristermitten.komms
+package me.bristermitten.komms.command
 
 import me.bristermitten.komms.argument.Argument
 import me.bristermitten.komms.sender.Sender
@@ -6,10 +6,8 @@ import me.bristermitten.komms.sender.Sender
 /**
  * @author AlexL
  */
-interface Command {
+interface RegisteredCommand {
     val name: String
-
-    val senderType: Sender<*>
 
     val arguments: List<Argument<*>>
 

@@ -3,6 +3,7 @@ plugins {
     id 'application'
 }
 
+
 group = 'me.bristermitten'
 version = '1.0-SNAPSHOT'
 

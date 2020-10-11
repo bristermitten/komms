@@ -23,7 +23,7 @@ class CommandHandlerTests {
             messageValue = message
         }
 
-        handler.commands.register(broadcastCommand)
+        handler.registerCommand(broadcastCommand)
         handler.handle(sender, "broadcast message")
 
         assertEquals("message", messageValue)
@@ -45,8 +45,8 @@ class CommandHandlerTests {
             messageValue2 = message2
         }
 
-        handler.commands.register(broadcastCommand)
-        handler.commands.register(broadcastCommand2)
+        handler.registerCommand(broadcastCommand)
+        handler.registerCommand(broadcastCommand2)
 
         handler.handle(sender, "broadcast message")
 
@@ -63,7 +63,7 @@ class CommandHandlerTests {
             value = num
         }
 
-        handler.commands.register(broadcastCommand)
+        handler.registerCommand(broadcastCommand)
 
         handler.handle(sender, "number 3")
 
@@ -79,7 +79,7 @@ class CommandHandlerTests {
             value = num
         }
 
-        handler.commands.register(broadcastCommand)
+        handler.registerCommand(broadcastCommand)
 
         handler.handle(sender, "number hello")
 
