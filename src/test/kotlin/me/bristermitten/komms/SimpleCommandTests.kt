@@ -58,36 +58,4 @@ class SimpleCommandTests {
         assertEquals("message", messageValue)
         assertEquals("", messageValue2)
     }
-
-    @Test
-    fun `Test Basic Command Handling with Int`() {
-        var value = 0
-
-        val broadcastCommand = command("number", arg<Int>("num")) { num ->
-            value = num
-        }
-
-        handler.registerCommand(broadcastCommand)
-
-        handler.handle(sender, "number 3")
-
-        assertEquals(3, value)
-    }
-
-    @Test
-    fun `Test Basic Command Handling with Invalid Int`() {
-        var value = 0
-        val broadcastCommand = command("number", arg<Int>("num")) { num ->
-            value = num
-        }
-
-        handler.registerCommand(broadcastCommand)
-
-        handler.handle(sender, "number hello")
-
-        assertEquals(0, value)
-        assertTrue {
-            sender.messages.poll().contains("Illegal arguments")
-        }
-    }
 }
