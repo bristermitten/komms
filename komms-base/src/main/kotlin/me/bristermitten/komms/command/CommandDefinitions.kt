@@ -5,10 +5,22 @@ package me.bristermitten.komms.command
 import me.bristermitten.komms.argument.ArgumentSnapshot
 import me.bristermitten.komms.sender.LoggingSender
 import me.bristermitten.komms.sender.Sender
+import me.bristermitten.komms.spec.CommandSpec
+import me.bristermitten.komms.spec.SenderSpec
+import kotlin.reflect.full.withNullability
 
 /**
  * @author AlexL
  */
+fun <T : Sender<*>> command(name: String, body: CommandSpec<T>.() -> Unit) {
+
+}
+
+@JvmName("commandGenericSender")
+fun command(name: String, body: CommandSpec<*>.() -> Unit) {
+
+}
+
 
 /* 0 arguments */
 inline fun <reified S : Sender<*>> command(
@@ -52,10 +64,17 @@ fun <T : Any> loggingSenderCommand(
 }
 
 
-
 @JvmName("stringArg")
 fun arg(name: String) = arg<String>(name)
 
 fun vararg(name: String) = arg<List<String>>(name)
 
-inline fun <reified T : Any> arg(name: String) = ArgumentSnapshot(name, T::class)
+inline fun <reified T : Any> arg(name: String) = ArgumentSnapshot<T>(name, T::class)
+
+
+fun <T: Any> ArgumentSnapshot<T>.optional() = ArgumentSnapshot<T?>(name, klass, type.withNullability(true))
+
+
+inline fun <reified T: Any> sender() : SenderSpec<T> {
+ return object: SenderSpec<T>{}
+}
